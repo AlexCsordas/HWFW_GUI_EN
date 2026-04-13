@@ -17,10 +17,10 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Restore NuGet packages
-        run: nuget restore HWFW_GUI_EN.sln
+        run: nuget restore HWFW_GUI.sln
 
       - name: Build Release
-        run: msbuild HWFW_GUI_EN.sln /p:Configuration=Release /p:Platform="Any CPU"
+        run: msbuild HWFW_GUI.sln /p:Configuration=Release /p:Platform="Any CPU"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
