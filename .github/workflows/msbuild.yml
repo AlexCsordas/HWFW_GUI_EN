@@ -1,0 +1,31 @@
+name: Build HWFW_GUI_EN
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore HWFW_GUI_EN.sln
+
+      - name: Build Release
+        run: msbuild HWFW_GUI_EN.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HWFW_GUI_EN-build
+          path: |
+            **/bin/Release/**
+          if-no-files-found: error
